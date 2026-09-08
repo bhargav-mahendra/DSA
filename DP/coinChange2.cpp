@@ -43,6 +43,36 @@ int coinChangeMem(int n, int tar, vector<int> &arr, vector<vector<int>>&dp)
     return dp[n][tar] =  take + nottake;
 }
 
+//tabulation
+int coinChangeTab(int tar, vector<int>& arr)
+{
+    int n = arr.size();
+
+    vector<vector<int>> dp(n, vector<int>(tar + 1, 0));
+
+    // Base case: using only arr[0]
+    for(int t = 0; t <= tar; t++)
+    {
+        if(t % arr[0] == 0)
+            dp[0][t] = 1;
+    }
+
+    for(int i = 1; i < n; i++)
+    {
+        for(int t = 0; t <= tar; t++)
+        {
+            int notTake = dp[i - 1][t];
+            int take = 0;
+            if(arr[i] <= t)
+                take = dp[i][t - arr[i]];
+
+            dp[i][t] = notTake + take;
+        }
+    }
+
+    return dp[n - 1][tar];
+}
+
 int main()
 {
     vector<int> arr = {1, 2, 5};
