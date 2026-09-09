@@ -53,6 +53,28 @@ int lcsTab(string &s1, string &s2)
     }
     return dp[n][m];
 }
+
+//space optimization
+int lcsSO(string &s1, string &s2)
+{
+    int n = s1.size();
+    int m = s2.size();
+    vector<int> prev(m+1,-1), curr(m+1, -1);
+    for(int j = 0;j<=m;j++) prev[j] = 0;
+    for(int i = 1;i<=n;i++)
+    {
+        curr[0] = 0;
+        for(int j = 1;j<=m;j++)
+        {
+            if(s1[i-1] == s2[j-1]) curr[j] = 1 + prev[j-1];
+            else{
+                curr[j] = max(prev[j], curr[j-1]);
+            }
+        }
+        prev = curr;
+    }
+    return prev[m];
+}
 int main() {
     string s1 = "adebc";
     string s2 = "dcadb";
@@ -61,7 +83,8 @@ int main() {
     vector<vector<int>> dp(m, vector<int>(n, -1));
     // cout << lcsRec(s1, s2, m-1 ,n-1) << endl;
     // cout << lcsMem(s1, s2, m-1 ,n-1, dp) << endl;
-    cout<<lcsTab(s1, s2);
+    //cout<<lcsTab(s1, s2);
+    cout<<lcsSO(s1, s2);
 
     return 0;
 }
