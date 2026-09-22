@@ -19,7 +19,7 @@ string minWindow(string &s, string &t)
                 count++;
             }
             mp[s[j]]--;
-            if(count == t.size())
+            if(count == m)
             {
                 int len = j-i+1;
                 if(len < minLen){
