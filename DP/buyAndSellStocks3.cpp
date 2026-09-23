@@ -3,7 +3,7 @@ using namespace std;
 
 int solve(vector<int> &prices, int n, int buy, int cap){
     if(cap == 0) return 0;
-    if(n == prices.size()) return 0;
+    if(n == prices.size()) return 0; 
     int profit = 0;
     if(buy){
         return max(-prices[n] + solve(prices, n+1, 0, cap), 
